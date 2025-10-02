@@ -1,0 +1,32 @@
+{
+    "files": [],
+    "references": [
+        {
+            "path": "./tsconfig.app.json"
+        },
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ],
+    "compilerOptions": {
+        "declaration": true,
+        "outDir": "./dist",
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "types": [
+            "node",
+            "webpack-env"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/*",
+        "src/**/*.ts"
+    ],
+    "exclude": ["node_modules", ".vscode"],
+}

@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend  # Path to the frontend directory
+    container_name: frontend
+    depends_on:
+      - backend  # Ensure the backend is up before frontend
+    ports:
+      - "5173:80"  # Map container port 80 to host port 80
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend  # Path to the backend directory
+    container_name: backend
+    ports:
+      - "8000:8000"  # Map container port 8000 to host port 8000
+#    depends_on:
+#      - db  # If you have a database service, uncomment this and configure it
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

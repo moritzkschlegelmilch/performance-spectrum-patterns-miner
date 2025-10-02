@@ -1,0 +1,39 @@
+{
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "compilerOptions": {
+        "types": [
+            "node",
+            "webpack-env"
+        ],
+        "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedSideEffectImports": true,
+
+        /* Docer */
+        "composite": true,
+        "allowImportingTsExtensions": true,
+        "emitDeclarationOnly": true,
+        "noEmit": false,
+        "baseUrl": "./src", 
+        "paths": {
+            "@/*": ["*"]
+        },
+        "declaration": true,
+        "outDir": "./dist",
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue"
+    ],
+    "baseUrl": ".",
+    "paths": {
+        "@/*": [
+            "src/*"
+        ]
+    }
+}

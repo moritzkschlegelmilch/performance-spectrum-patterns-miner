@@ -1,0 +1,10 @@
+fastapi~=0.115.12
+sqlalchemy~=2.0.40
+alembic~=1.15.2
+pm4py~=2.7.15
+pydantic~=2.11.3
+cachetools~=5.5.2
+pandas~=2.2.3
+scikit-learn~=1.6.1
+python-multipart~=0.0.20
+uvicorn~=0.34.2

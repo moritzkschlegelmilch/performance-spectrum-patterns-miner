@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XES xmlns="http://www.xes-standard.org/">
+    <global scope="trace">
+        <string key="concept:name" value="Trace"/>
+    </global>
+    <global scope="event">
+        <string key="concept:name" value="Event"/>
+        <date key="time:timestamp" value="2007-09-06T00:00:00.000+00:00"/>
+    </global>
+
+    <trace>
+        <string key="concept:name" value="Trace_1"/>
+        <event>
+            <string key="concept:name" value="Start"/>
+            <date key="time:timestamp" value="2007-09-06T00:00:00.000+00:00"/>
+        </event>
+        <event>
+            <string key="concept:name" value="Finish"/>
+            <date key="time:timestamp" value="2007-09-06T01:00:00.000+00:00"/>
+        </event>
+    </trace>
+
+    <trace>
+        <string key="concept:name" value="Trace_2"/>
+        <event>
+            <string key="concept:name" value="Start"/>
+            <date key="time:timestamp" value="2007-09-06T02:00:00.000+00:00"/>
+        </event>
+        <event>
+            <string key="concept:name" value="Intermediate"/>
+            <date key="time:timestamp" value="2007-09-06T03:00:00.000+00:00"/>
+        </event>
+        <event>
+            <string key="concept:name" value="Finish"/>
+            <date key="time:timestamp" value="2007-09-06T04:00:00.000+00:00"/>
+        </event>
+    </trace>
+
+</XES>
