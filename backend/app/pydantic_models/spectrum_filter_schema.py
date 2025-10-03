@@ -18,6 +18,7 @@ class BatchFilter(BaseModel):
     batchType: str = None
     epsilon: float = None
     minSamples: int = None
+    fifoOnly: bool = False
 
 
 CaseFilter = List[str]

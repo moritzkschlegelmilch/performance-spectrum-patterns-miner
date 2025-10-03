@@ -161,7 +161,15 @@ class PerformanceSpectrum:
         @param miner:
         @return:
         """
-        self.set_records(miner.cluster_pms_data(batches.epsilon, batches.minSamples, self.records, batches.batchType))
+        self.set_records(
+            miner.cluster_pms_data(
+                batches.epsilon,
+                batches.minSamples,
+                self.records,
+                batches.batchType,
+                batches.fifoOnly
+            )
+        )
         return self
 
     def quartile(self, quartile: float, miner: psminer.SpectrumPatternsMiner) -> Self:

@@ -1,3 +1,4 @@
+import pm4py
 from fastapi import UploadFile, Path, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pm4py.objects.conversion.log import converter as log_converter

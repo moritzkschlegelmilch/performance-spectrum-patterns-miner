@@ -47,15 +47,17 @@ export const CASE_FILTERS = {
     CLUSTERING: {
         id: 'clustering',
         name: "Batch Clustering",
-        displayData({batchType, epsilon, minSamples}){
-            return `Batch type: ${batchType.label}, Epsilon: ${epsilon}, Min samples: ${minSamples}`
+        displayData({batchType, epsilon, minSamples, fifoOnly}){
+            return `
+                Batch type: ${batchType.label}, Epsilon: ${epsilon}, Min samples: ${minSamples}, sequential only: ${fifoOnly}
+            `
         },
         refresh({clusteringModel, getFilterOfTypeForSpectrum, currentSpectrum}){
             const clusteringData = getFilterOfTypeForSpectrum(currentSpectrum.value)(CASE_FILTERS.CLUSTERING)
             if (clusteringData){
                 clusteringData.enabled = true
             }
-            clusteringModel.value = clusteringData ?? {enabled: false, batchType: null, epsilon: 10, minSamples: 20}
+            clusteringModel.value = clusteringData ?? {enabled: false, batchType: null, epsilon: 10, minSamples: 20, fifoOnly: false}
         }
     },
     QUARTILE: {

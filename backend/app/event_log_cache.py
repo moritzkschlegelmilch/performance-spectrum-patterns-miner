@@ -15,7 +15,7 @@ cache = cachetools.LRUCache(maxsize=100)
 def cache_log(log_id: int, file: str) -> None:
     # load event log into cache
     try:
-        log_data = pm4py.read_xes("./uploads/" + file)
+        log_data = pm4py.convert_to_dataframe(pm4py.read_xes("./uploads/" + file))
     except Exception:
         raise HTTPException(status_code=400, detail={'err': constants.INVALID_EVENT_LOG_ERROR, 'id': log_id})
     cache[log_id] = {

@@ -36,6 +36,16 @@
           <NumberFieldIncrement />
         </NumberFieldContent>
       </NumberField>
+      <Separator class="my-3"></Separator>
+      <div class="flex items-center space-x-2 mb-2">
+        <Checkbox id="terms" v-model="fifoOnly"/>
+        <label
+          for="terms"
+          class="text-sm text-gray-300"
+        >
+          Only consider sequential batches
+        </label>
+      </div>
       <Button class="mt-2 w-full" :disabled="inputDisabled" @click="applyFilter">Apply</Button>
     </PopoverContent>
   </Popover>
@@ -47,6 +57,7 @@ import Button from "@/components/ui/button/Button.vue";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover/index.js";
 import {Merge} from "lucide-vue-next";
 import SegmentCombobox from "@/components/SegmentCombobox.vue";
+import { Checkbox } from "@/components/ui/checkbox"
 import {
     NumberField,
     NumberFieldContent,
@@ -68,6 +79,7 @@ const emit = defineEmits(['apply'])
 const batchType = defineModel('batchType', {required: true})
 const epsilon = defineModel('epsilon', {required: true})
 const minSamples = defineModel('minSamples', {required: true})
+const fifoOnly = defineModel('fifoOnly', {required: true})
 const popoverModel = ref(false)
 
 const inputDisabled = computed(() => {
