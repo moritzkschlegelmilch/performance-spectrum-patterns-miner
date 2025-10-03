@@ -1,9 +1,22 @@
 <meta charset="UTF-8">
 
-
 <img width="300px" src="manual/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;">
 
 ## SPP Performance Spectrum Patterns Miner
+
+Artifact accompanying the 23rd International Conference on Service-Oriented Computing ([ICSOC 2025](https://icsoc2025.hit.edu.cn/)) Demos and Resources track submission.
+
+**Authors and Affiliations:**  
+- [Tsung-Hao Huang](mailto:tsunghao.huang@rwth-aachen.de) (RWTH Aachen University)  
+- [Gyunam Park](mailto:g.park@tue.nl) (Eindhoven University of Technology)  
+- [Volodymyr Diemieniev](mailto:volodymyr.diemieniev@rwth-aachen.de) (RWTH Aachen University)  
+- [Jasper Saathoff](mailto:jasper.saathoff@rwth-aachen.de) (RWTH Aachen University)  
+- [Moritz Schlegelmilch](mailto:moritz.schlegelmilch@rwth-aachen.de) (RWTH Aachen University)  
+- [Piotr Zaniewski](mailto:piotr.zaniewski@rwth-aachen.de) (RWTH Aachen University)  
+ 
+**Repository:** [GitHub](https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner)  
+**License:** [MIT](https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner/blob/main/LICENSE)  
+Please cite this work using the [CITATION.cff](https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner/blob/main/CITATION.cff) file.
 
 ## Table of Contents
 
@@ -75,7 +88,6 @@ The tool described in this manual looks to overcome this limitation by implement
 ### 2.1 Prerequisites
   
 - **Docker & Docker Compose** (for containerized deployment) 
-- A device with a screen larger than 13-inch in the best case. 
 
 ### 2.2 Docker Deployment
 
@@ -186,7 +198,7 @@ The **Event Logs** page allows users to view and manage all previously uploaded 
 #### Available Actions
 
 - **Delete**: Click the trash bin icon on a card to remove the event log.  
-  > ⚠️ **Caution:** This action is irreversible. Once an event log is deleted, it cannot be recovered.
+  > **Caution:** This action is irreversible. Once an event log is deleted, it cannot be recovered.
 
 - **View**: Click on **“Click to view”** to access the **Performance Spectrum** analysis page for the selected event log.
 
@@ -204,7 +216,7 @@ If you encounter issues during the upload process:
 - Confirm that the correct columns have been mapped.
 - Wait a moment in case the system is still processing the uploaded data.
 - If the spectrum is not shown properly, try deleting it and uploading again.
-- If problems persist and you think this may be a technical problem, feel free to reach out to us.
+- If problems persist and you think this may be a technical problem, reach out to us.
 
 
 ---
@@ -229,10 +241,10 @@ The color of lines in the spectrum is determined by the **quartile** that their 
 
 | **Color**    | **Quartile**           | **Meaning**           |
 | ------------ | ---------------------- | --------------------- |
-| 🟦 Light Blue | 1st Quartile (0–25%)   | Fastest 25% of cases  |
-| 🟨 Yellow     | 2nd Quartile (25–50%)  | Moderately fast cases |
-| 🟧 Orange     | 3rd Quartile (50–75%)  | Moderately slow cases |
-| 🟥 Red        | 4th Quartile (75–100%) | Slowest 25% of cases  |
+| Light Blue | 1st Quartile (0–25%)   | Fastest 25% of cases  |
+| Yellow     | 2nd Quartile (25–50%)  | Moderately fast cases |
+| Orange     | 3rd Quartile (50–75%)  | Moderately slow cases |
+| Red        | 4th Quartile (75–100%) | Slowest 25% of cases  |
 
 > **Note:** The quartile is always calculated based on the entire event log, not on the currently shown selection. 
 
@@ -248,7 +260,7 @@ In the context of this manual, one can distinguish between two types of filters:
 #### 4.2.2 Date-Range Filter
 This filter allows the user to focus on a specific time period within the event log. One can activate the date-range filter as follows.
 
-1. Click the **📅 Calendar** icon. A *popover* opens now. 
+1. Click the **Calendar** icon. A *popover* opens now. 
 2. Select two dates following one another by simply clicking the dates number. (One can also navigate the months by clicking the arrows on the top left and right of the *popover*.)
 3. Click **Apply** to filter the spectrum by the selected date range. One can also click **Reset** to clear the selection and return to the full spectrum.
 
