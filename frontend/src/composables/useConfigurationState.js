@@ -36,7 +36,8 @@ const initState = () =>  {
         enabled: false,
         batchType: null,
         epsilon: 10,
-        minSamples: 20
+        minSamples: 20,
+        fifoOnly: false
     })
     // Id of the spectrum,i.e. the segment of a spectrum collection that is currently selected
     const currentSpectrum = ref(0)
@@ -87,7 +88,8 @@ const initState = () =>  {
             batches: {
                 batchType: batches?.batchType.key,
                 epsilon: batches?.epsilon,
-                minSamples: batches?.minSamples
+                minSamples: batches?.minSamples,
+                fifoOnly: batches?.fifoOnly
             }
         }
     }
@@ -277,15 +279,16 @@ const initState = () =>  {
         addGlobalCaseFilter(CASE_FILTERS.SEGMENT, {start, end})
     }
 
-    const setClusteringFilter = (batchType, epsilon, minSamples) => {
+    const setClusteringFilter = (batchType, epsilon, minSamples, fifoOnly) => {
         // Sync the model value with the data value
         clusteringModel.value = {
             enabled: true,
             batchType,
             epsilon,
-            minSamples
+            minSamples,
+            fifoOnly
         }
-        addCaseFilter(CASE_FILTERS.CLUSTERING, {batchType, epsilon, minSamples})
+        addCaseFilter(CASE_FILTERS.CLUSTERING, {batchType, epsilon, minSamples, fifoOnly})
     }
 
     const setQuartileFilter = (quartile) => {

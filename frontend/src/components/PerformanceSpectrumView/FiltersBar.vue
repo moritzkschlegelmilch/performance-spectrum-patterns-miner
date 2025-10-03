@@ -44,6 +44,7 @@
             v-model:batch-type="clusteringModel.batchType"
             v-model:epsilon="clusteringModel.epsilon"
             v-model:min-samples="clusteringModel.minSamples"
+            v-model:fifo-only="clusteringModel.fifoOnly"
             :enabled="clusteringModel.enabled"
             @apply="applyClustering"
           />
@@ -203,7 +204,12 @@ const removeFilter = (filter) => {
 
 
 const applyClustering = () => {
-    setClusteringFilter(clusteringModel.value.batchType, clusteringModel.value.epsilon, clusteringModel.value.minSamples)
+    setClusteringFilter(
+        clusteringModel.value.batchType,
+        clusteringModel.value.epsilon,
+        clusteringModel.value.minSamples,
+        clusteringModel.value.fifoOnly
+    )
 }
 
 

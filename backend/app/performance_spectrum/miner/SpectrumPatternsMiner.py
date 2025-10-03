@@ -1,6 +1,7 @@
 from pandas import DataFrame
 from sklearn.cluster import DBSCAN
 
+from helper import lnds_on_column
 from models import Eventlog
 
 
@@ -10,8 +11,15 @@ class SpectrumPatternsMiner:
         self.eventlog = eventlog
         self.batch_data = None
 
-    def cluster_pms_data(self, epsilon, min_samples, pms_df, batch_type='end') -> DataFrame:
+    def cluster_pms_data(self, epsilon, min_samples, pms_df, batch_type='end', fifo_only=False) -> DataFrame:
         cols = [f"{batch_type}_timestamp"] if batch_type in ['start', 'end'] else ['start_timestamp', 'end_timestamp']
+
+        if fifo_only:
+            # sort start timestamps
+            pms_df.sort_values(by="start_timestamp", ascending=True, inplace=True)
+            idx = lnds_on_column(pms_df, 'end_timestamp')
+            pms_df = pms_df.loc[idx]
+            pass
 
         db = DBSCAN(eps=epsilon, min_samples=min_samples).fit(pms_df[cols])
         pms_df["cluster"] = db.labels_
