@@ -1,26 +1,86 @@
 <template>
-  <div v-html="result" class="markdown-body"></div>
+  <div v-html="html" class="markdown-body"></div>
 </template>
 
-<script lang="js" setup>
+<script setup lang="js">
 import markdownit from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
 
+// 1) Load the markdown as raw text
+import content from '../../../README.md?raw'
 
-const md = markdownit({html: true})
-// Enable anchors in headings
-md.use(markdownItAnchor, {
-    slugify: s =>
-        s
-        .trim()
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, '')      // remove punctuation
-        .replace(/\s+/g, '-')          // replace spaces with dashes
-        .replace(/-+/g, '-'),          // collapse multiple dashes
+// 2) Tell Vite to bundle the images and give us their emitted URLs
+//    IMPORTANT: make the pattern(s) match where your MD refers to images.
+//    Example assumes your MD uses paths like "./manual/images/foo.png"
+const assetMap = import.meta.glob(
+    // adjust these globs to match your repo layout
+    [
+        '../../../manual/images/**/*.{png,jpg,jpeg,gif,svg,webp,apng}',
+        '../../../**/*.{png,jpg,jpeg,gif,svg,webp,apng}'
+    ],
+    { eager: true, import: 'default' }
+)
+// assetMap keys are the *import specifiers* (the path strings matched by the globs).
+// Values are emitted URLs (e.g. "/assets/logo.abc123.png").
+
+// 3) Helper to resolve a Markdown-authored relative path to an emitted URL.
+//    We’ll map authoring paths like "./manual/images/logo.png"
+//    to the corresponding glob key(s) we imported above.
+function resolveAsset(authorPath) {
+    // normalize leading "./"
+    const clean = authorPath.replace(/^\.\//, '')
+
+    // Try a few prefixes that match your globs. Tweak as needed.
+    const candidates = [
+        `../../../${clean}`,                   // relative to *this component* file
+        `../../../manual/images/${clean.replace(/^manual\/images\//, '')}`
+    ]
+
+    for (const key of candidates) {
+        if (assetMap[key]) return assetMap[key]
+    }
+    return null // not found -> leave as-is
+}
+
+const md = markdownit({ html: true })
+.use(markdownItAnchor, {
+    slugify: s => s.trim().toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
 })
-// Import markdown file, must be in public folder as images otherwise do not load.
-import content from '../../public/MANUAL.md?raw'
-const result = md.render(content);
+
+// 4) Also rewrite Markdown image tokens (![alt](...))
+const defaultImage = md.renderer.rules.image
+md.renderer.rules.image = (tokens, idx, options, env, self) => {
+    const token = tokens[idx]
+    const src = token.attrGet('src') || ''
+    const isRelative = !/^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src) // not http(s):, data:, or root-absolute
+    if (isRelative) {
+        const url = resolveAsset(src)
+        if (url) token.attrSet('src', url)
+    }
+    return defaultImage
+        ? defaultImage(tokens, idx, options, env, self)
+        : self.renderToken(tokens, idx, options)
+}
+
+// 5) Render Markdown, then rewrite any raw <img> tags inside HTML
+function rewriteHtmlImages(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+    const imgs = doc.querySelectorAll('img[src]')
+    imgs.forEach(img => {
+        const src = img.getAttribute('src') || ''
+        const isRelative = !/^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src)
+        if (isRelative) {
+            const url = resolveAsset(src)
+            if (url) img.setAttribute('src', url)
+        }
+    })
+    return doc.body.innerHTML
+}
+
+const html = rewriteHtmlImages(md.render(content))
 </script>
 
 <style>
