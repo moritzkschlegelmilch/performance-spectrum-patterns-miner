@@ -295,12 +295,15 @@ Under the hood, the application uses [DBSCAN-Clustering](https://de.wikipedia.or
 - **Epsilon**: Determines, how "close" two cases must be in time to belong to the same batch. Increasing this value potentially drags lines in a batch further apart and usually increases the number of batches.
 - **Min-Samples**: The minimum number of cases a batch must include to be detected. Increasing this number usually makes batches larger and lowers the total amount of batches.
 
+Furthermore, it is possible to choose only sequential batches using a *first-in, first-out* approach. This is done by identifying the *Longest Increasing Subsequence* of case completion times, ensuring that only cases following a strictly increasing time order are included in the batch.
+
 To apply batch filtering, perform the following steps:
 
-1. Click **Batch Type**
+1. Click **Batch Type**.
 2. Select a batch type from the dropdown menu (Start, End, Start and End).
-3. Adjust **ε (minutes)** and **Min Samples** (One may use +/– without typing into the text field)  
-4. Click **Apply**.
+3. Adjust **ε (minutes)** and **Min Samples** (One may use +/– without typing into the text field).  
+4. Choose whether to consider **only sequential batches**.  
+5. Click **Apply**.
 
 ![Batching Controls](manual/images/batch.png)
 
