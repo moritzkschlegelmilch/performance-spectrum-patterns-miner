@@ -2,9 +2,9 @@
 
 <img width="300px" src="manual/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;">
 
-## SPP Performance Spectrum Patterns Miner
+## Performance Spectrum Patterns Miner
 
-Artifact accompanying the 23rd International Conference on Service-Oriented Computing ([ICSOC 2025](https://icsoc2025.hit.edu.cn/)) Demos and Resources track submission.
+Artifact accompanying the 38th International Conference on Advanced Information Systems Engineering ([CAiSE 2026](https://caise26.polimi.it/)) Forum Demo Papers submission.
 
 **Authors and Affiliations:**  
 - [Tsung-Hao Huang](mailto:tsunghao.huang@rwth-aachen.de) (RWTH Aachen University)  
