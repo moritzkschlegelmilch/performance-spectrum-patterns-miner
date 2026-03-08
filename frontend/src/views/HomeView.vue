@@ -1,86 +1,58 @@
 <template>
   <div v-html="html" class="markdown-body"></div>
 </template>
-
 <script setup lang="js">
+import { onMounted } from 'vue'
 import markdownit from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
+import {html} from '../composables/useReadmeState.js'
 
-// 1) Load the markdown as raw text
-import content from '../../../README.md?raw'
-
-// 2) Tell Vite to bundle the images and give us their emitted URLs
-//    IMPORTANT: make the pattern(s) match where your MD refers to images.
-//    Example assumes your MD uses paths like "./manual/images/foo.png"
-const assetMap = import.meta.glob(
-    // adjust these globs to match your repo layout
-    [
-        '../../../manual/images/**/*.{png,jpg,jpeg,gif,svg,webp,apng}',
-        '../../../**/*.{png,jpg,jpeg,gif,svg,webp,apng}'
-    ],
-    { eager: true, import: 'default' }
-)
-// assetMap keys are the *import specifiers* (the path strings matched by the globs).
-// Values are emitted URLs (e.g. "/assets/logo.abc123.png").
-
-// 3) Helper to resolve a Markdown-authored relative path to an emitted URL.
-//    We’ll map authoring paths like "./manual/images/logo.png"
-//    to the corresponding glob key(s) we imported above.
-function resolveAsset(authorPath) {
-    // normalize leading "./"
-    const clean = authorPath.replace(/^\.\//, '')
-
-    // Try a few prefixes that match your globs. Tweak as needed.
-    const candidates = [
-        `../../../${clean}`,                   // relative to *this component* file
-        `../../../manual/images/${clean.replace(/^manual\/images\//, '')}`
-    ]
-
-    for (const key of candidates) {
-        if (assetMap[key]) return assetMap[key]
-    }
-    return null // not found -> leave as-is
-}
-
-const md = markdownit({ html: true })
-.use(markdownItAnchor, {
+const md = markdownit({ html: true }).use(markdownItAnchor, {
     slugify: s => s.trim().toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
 })
 
-// 4) Also rewrite Markdown image tokens (![alt](...))
+function toAbsoluteUrl(src) {
+    if (!src) return src
+    if (/^(?:[a-z][a-z0-9+.-]*:|\/\/|\/)/i.test(src)) return src
+    return import.meta.env.VITE_RAW_BASE_URL + src.replace(/^\.\//, '')
+}
+
 const defaultImage = md.renderer.rules.image
 md.renderer.rules.image = (tokens, idx, options, env, self) => {
     const token = tokens[idx]
     const src = token.attrGet('src') || ''
-    const isRelative = !/^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src) // not http(s):, data:, or root-absolute
-    if (isRelative) {
-        const url = resolveAsset(src)
-        if (url) token.attrSet('src', url)
-    }
+    token.attrSet('src', toAbsoluteUrl(src))
+
     return defaultImage
         ? defaultImage(tokens, idx, options, env, self)
         : self.renderToken(tokens, idx, options)
 }
 
-// 5) Render Markdown, then rewrite any raw <img> tags inside HTML
-function rewriteHtmlImages(html) {
-    const doc = new DOMParser().parseFromString(html, 'text/html')
+function rewriteHtmlImages(renderedHtml) {
+    const doc = new DOMParser().parseFromString(renderedHtml, 'text/html')
     const imgs = doc.querySelectorAll('img[src]')
+
     imgs.forEach(img => {
         const src = img.getAttribute('src') || ''
-        const isRelative = !/^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src)
-        if (isRelative) {
-            const url = resolveAsset(src)
-            if (url) img.setAttribute('src', url)
-        }
+        img.setAttribute('src', toAbsoluteUrl(src))
     })
+
     return doc.body.innerHTML
 }
 
-const html = rewriteHtmlImages(md.render(content))
+onMounted(async () => {
+    try {
+        const res = await fetch(import.meta.env.VITE_README_URL)
+        const content = await res.text()
+        html.value = rewriteHtmlImages(md.render(content))
+    } catch (err) {
+        html.value = '<p>Failed to load README.</p>'
+        console.error(err)
+    }
+})
 </script>
 
 <style>
