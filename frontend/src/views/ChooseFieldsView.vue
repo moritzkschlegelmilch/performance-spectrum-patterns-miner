@@ -97,6 +97,7 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import Separator from "@/components/ui/separator/Separator.vue";
+import {useRouter} from "vue-router";
 
 const props = defineProps({
     id: {
@@ -108,6 +109,18 @@ const props = defineProps({
 const routeToAllLogs = () => {
     // Navigate to the overview of all event logs
     window.location.href = '/event-logs'
+}
+const router = useRouter()
+
+const isEventLogConfigured = (log) => {
+    return !!(log?.case_id && log?.activity && log?.timestamp)
+}
+
+const routeToEventLogDetails = (id) => {
+    return router.replace({
+        name: 'EventLogDetails',
+        params: {id}
+    })
 }
 
 // Model to control the visibility of the alert dialog
@@ -169,6 +182,8 @@ const loadingEventLogColumns = ref(false)
 axios.get(`/api/event-log/basic/${props.id}`).then(({data}) => {
     eventLog.value = data.event_log
     tabularLogData.value = data.df
+
+    if (isEventLogConfigured(eventLog.value)) return routeToEventLogDetails(eventLog.value.id)
 }).catch(() => {
   alertDialogModel.value = true
 }).finally(() => {
@@ -180,9 +195,12 @@ axios.get(`/api/event-log/basic/${props.id}`).then(({data}) => {
  */
 const commitEventLogData = () => {
     loadingEventLogColumns.value = true
-    axios.post(`/api/commit-event-log/${eventLog.value.id}`, eventLog.value).catch(() => showError()).finally(() => {
-        loadingEventLogColumns.value = false
-    })
+    axios.post(`/api/commit-event-log/${eventLog.value.id}`, eventLog.value)
+        .then(() => routeToEventLogDetails(eventLog.value.id))
+        .catch(() => showError())
+        .finally(() => {
+            loadingEventLogColumns.value = false
+        })
 }
 
 /**

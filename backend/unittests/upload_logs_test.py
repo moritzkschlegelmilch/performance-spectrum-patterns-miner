@@ -55,7 +55,23 @@ class TestEventLogUpload(unittest.TestCase):
         self.assertIn("df", data)
         self.assertIsInstance(data["df"], list)
         self.assertEqual(data["event_log"]["id"], event_log_id)
+        self.assertEqual(data["event_log"]["case_id"], "case:concept:name")
+        self.assertEqual(data["event_log"]["activity"], "concept:name")
+        self.assertEqual(data["event_log"]["timestamp"], "time:timestamp")
         self.assertEqual(12, len(data['df']))
+
+    def test_get_event_log_choosing_data_auto_configures_standard_columns(self):
+        data = self.setup_uploaded_log("simple-log.xes")
+        event_log_id = data.json()["id"]
+
+        choosing_data_response = client.get(f"/api/event-log/basic/{event_log_id}")
+        self.assertEqual(choosing_data_response.status_code, 200)
+
+        response = client.get(f"/api/event-log/{event_log_id}/data")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["case_id"], "case:concept:name")
+        self.assertEqual(response.json()["activity"], "concept:name")
+        self.assertEqual(response.json()["timestamp"], "time:timestamp")
 
     def test_get_event_log_choosing_data_to_few_columns(self):
         data = self.setup_uploaded_log("too_few_columns.xes")
