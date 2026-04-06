@@ -21,8 +21,8 @@
       </div>
       <!-- End of center links -->
 
-      <a class="ml-auto" href="https://git.rwth-aachen.de/jasper.saathoff/spp-performance-spectrum-patterns-miner" target="_blank" rel="noopener noreferrer" title="Gitlab repository">
-      <Gitlab :size="20" />
+      <a class="ml-auto" href="https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner" target="_blank" rel="noopener noreferrer" title="Gitlab repository">
+      <Github :size="20" />
       </a>
 
     </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import {Gitlab} from 'lucide-vue-next';
+import {Github} from 'lucide-vue-next';
 </script>
 
 <style lang="scss" scoped>

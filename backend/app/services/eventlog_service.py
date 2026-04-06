@@ -11,6 +11,12 @@ from models import Eventlog
 from pydantic_models.spectrum_filter_schema import SpectrumFilterRequest
 from performance_spectrum.PerformanceSpectrum import PerformanceSpectrum, PerformanceSpectrumCollection
 
+STANDARD_EVENT_LOG_COLUMNS = {
+    "case_id": "case:concept:name",
+    "activity": "concept:name",
+    "timestamp": "time:timestamp",
+}
+
 
 # Set the basic metadata columns of the event log.
 def update_event_log_column_data(event_log: Eventlog, case_id: str, activity: str, timestamp: str, db=SessionLocal):
@@ -20,6 +26,19 @@ def update_event_log_column_data(event_log: Eventlog, case_id: str, activity: st
 
     db.commit()
 
+    return True
+
+
+def set_standard_columns(event_log: Eventlog, available_columns):
+    if event_log.case_id or event_log.activity or event_log.timestamp:
+        return False
+
+    if not all(column in available_columns for column in STANDARD_EVENT_LOG_COLUMNS.values()):
+        return False
+
+    event_log.case_id = STANDARD_EVENT_LOG_COLUMNS["case_id"]
+    event_log.activity = STANDARD_EVENT_LOG_COLUMNS["activity"]
+    event_log.timestamp = STANDARD_EVENT_LOG_COLUMNS["timestamp"]
     return True
 
 
@@ -35,6 +54,9 @@ def get_event_log_field_choosing_data(event_log: Eventlog, db=SessionLocal):
     # Check if the event log has at least 3 columns, otherwise no useful configuration is possible
     if event_log.column_count < 3:
         raise HTTPException(status_code=400, detail={'err': constants.INVALID_EVENT_LOG_ERROR, 'id': event_log.id})
+
+    # set the columns if standard column names are available
+    set_standard_columns(event_log, log_data.columns)
     db.commit()
     db.refresh(event_log)
     return {"event_log": event_log, "df": df.to_dict(orient="records")}
