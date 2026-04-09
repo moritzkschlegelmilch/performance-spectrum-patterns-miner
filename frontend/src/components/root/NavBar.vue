@@ -2,8 +2,8 @@
   <header class="w-full p-5 dark">
     <div class="max-w-7xl px-6 mx-auto flex gap-3 relative items-center">
 
-      <img src="../../../public/logo_light.png" alt="Logo" class="w-10 h-10 rounded-full" />
-      <div class="font-bold">Performance Spectrum Miner</div>
+      <img src="../../assets/logo_light.png" alt="Logo" class="h-10 rounded-full" />
+      <div class="font-bold">PerSpect</div>
 
       <!-- links shall be centered -->
       <div class="flex gap-10 overlay">

@@ -2,17 +2,17 @@
 
 <img width="300px" src="manual/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;">
 
-## Performance Spectrum Patterns Miner
+## PerSpect: A Performance Spectrum Patterns Miner
 
 Artifact accompanying the 38th International Conference on Advanced Information Systems Engineering ([CAiSE 2026](https://caise26.polimi.it/)) Forum Demo Papers submission.
 
 **Authors and Affiliations:**  
+- [Moritz Schlegelmilch](mailto:moritz.schlegelmilch@rwth-aachen.de) (RWTH Aachen University)
+- [Piotr Zaniewski](mailto:piotr.zaniewski@rwth-aachen.de) (RWTH Aachen University)
+- [Volodymyr Diemieniev](mailto:volodymyr.diemieniev@rwth-aachen.de) (RWTH Aachen University)
+- [Jasper Saathoff](mailto:jasper.saathoff@rwth-aachen.de) (RWTH Aachen University)
 - [Tsung-Hao Huang](mailto:tsunghao.huang@rwth-aachen.de) (RWTH Aachen University)  
-- [Gyunam Park](mailto:g.park@tue.nl) (Eindhoven University of Technology)  
-- [Volodymyr Diemieniev](mailto:volodymyr.diemieniev@rwth-aachen.de) (RWTH Aachen University)  
-- [Jasper Saathoff](mailto:jasper.saathoff@rwth-aachen.de) (RWTH Aachen University)  
-- [Moritz Schlegelmilch](mailto:moritz.schlegelmilch@rwth-aachen.de) (RWTH Aachen University)  
-- [Piotr Zaniewski](mailto:piotr.zaniewski@rwth-aachen.de) (RWTH Aachen University)  
+- [Gyunam Park](mailto:g.park@tue.nl) (Eindhoven University of Technology)
  
 **Repository:** [GitHub](https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner)  
 **License:** [MIT](https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner/blob/main/LICENSE)  
