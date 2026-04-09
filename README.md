@@ -61,7 +61,7 @@ But these diagrams can miss important information. They show what happens, but n
 This is where *spectral pattern analysis* comes into place. Spectral pattern analysis offers a new way to visualize process variants. Instead of just focusing on the structure of the process, it highlights *timing and communication patterns*. This helps us detect delays, clusters of similar cases, or parts of the process where work slows down.
 
 <figure>
-    <img width="100%" src="manual/images/Graph - Pattern.png">
+    <img width="100%" src="manual/images/graph-Pattern.png">
     <figcaption><i>Spectral pattern</i> visualization of a <i>graph model </i> <a href="https://www.vdaalst.rwth-aachen.de/publications/p1027.pdf">[1]</a></figcaption>
 </figure>
  
@@ -70,7 +70,7 @@ Below, one can see an example of a *Performance Spectrum*. All activities are li
 This effect is also supported by the color of the line: the darker the color, the longer the delay between the two activities. This way, we can see where delays are happening in the process at one glance .
 
 <figure>
-    <img width="100%" src="manual/images/Sorted Batches.png">
+    <img width="100%" src="manual/images/sorted-batches.png">
     <figcaption> Different ways to separate overlapping patterns in Performance Spectra</figcaption>
 </figure>
 
@@ -125,12 +125,12 @@ To begin the upload process, proceed as follows:
 1. Navigate to the **Upload** section from the main navigation menu.
      
 
-   ![Upload interface](manual/images/UploadLog.png)
+   ![Upload interface](manual/images/upload-log.png)
 2. Click on the designated upload area and select a `.xes` file from your local device. Make sure that it has a valid format as the tool may not work in the intended way if not.
 3. Enter a **name** for the event log in the provided input field.
 4. Click the **Submit** button to initiate the upload.  
 
-![Uploaded interface](manual/images/UploadedLog.png)
+![Uploaded interface](manual/images/uploaded-log.png)
 
 > **Note:** The system accepts only files in the `.xes` (eXtensible Event Stream) format.
 
@@ -140,7 +140,7 @@ To begin the upload process, proceed as follows:
 
 ### 3.2 Mapping Event Log Columns
 
-Upon successful file submission, the system will prompt the user to define the columns corresponding to the following required attributes:
+> **Note:** This section is often skipped as the system automatically detects event log columns in most cases. However, if your event log does not comply with the standard naming conventions for event log columns, you will have to manually map them.
 
 - **Case ID**
 - **Activity**
@@ -154,40 +154,28 @@ In the provided table. Select the columns in the order described by the system. 
 | Activity  | `concept:name`, `activity`, `lifecycle:transition` |
 | Timestamp | `time:timestamp`                                   |
 
-![Column Mapping](manual/images/Columns.png)
+![Column Mapping](manual/images/columns.png)
 
 If an incorrect mapping was made by incident, one may use the **Reset** button to clear the selections and start over again.  
 
-![Reset Button](manual/images/ResetButton.png)
+![Reset Button](manual/images/reset-button.png)
 
-> **Important:** Note that it is crucial to correctly map the columns to ensure that the tool yields correct data.
----
+> **Important:** Note that it is crucial to correctly map the columns to ensure that the tool yields correct data. 
 
-### 3.3 Analyzing the Event Log
+Upon successful selection of necessary columns, you are being redirected to the main analysis page. The uploaded event log becomes accessible on the **Event Logs** page, where it is stored and can be accessed later on as well.
 
-Once all columns are correctly mapped:
-
-1. Click the **Analyze** button to initiate event log processing.
-2. The system will take you to the main page for analysis that is further discussed in section *4*.
-
-![Success](manual/images/Ready.png)
-
-Upon successful analysis, the uploaded event log becomes accessible on the **Event Logs** page, where it is stored and can be accessed later on as well.
-
----
-
-### 3.4 Accessing Uploaded Event Logs
+### 3.3 Accessing Uploaded Event Logs
 
 To view uploaded event logs:
 
 - Navigate to the **Event Logs** page via the main menu.
 - The uploaded logs will be listed and available for selection and further processing. 
  
-![Overview](manual/images/Overview.png)
+![Overview](manual/images/overview.png)
 
 ---
 
-### 3.5 Event Logs Page Overview
+### 3.4 Event Logs Page Overview
 
 The **Event Logs** page allows users to view and manage all previously uploaded event logs. Each log is displayed as a card containing:
 
@@ -204,7 +192,7 @@ The **Event Logs** page allows users to view and manage all previously uploaded 
 
 These functionalities are intended to help the user efficiently organize, update, and explore their event logs.
 
-![Deleting](manual/images/Delete.png)
+![Deleting](manual/images/delete.png)
 
 ---
 
@@ -335,7 +323,7 @@ To apply a segment filter, perform the following steps:
 3. Choose a start and end *activity*.
 4. Click **Filter segment** to filter the spectrum by the selected segment.
 
-![Segment Filter](manual/images/segment_filter.png)
+![Segment Filter](manual/images/segment-filter.png)
 
 > **Note:** As the Performance Spectrum fundamentally changes the spectrum, segment specific filters are reset.
 
@@ -391,7 +379,7 @@ The first diagram shows how frequently cases start within the given bin and seco
 
 #### 4.4.2 Basic Statistics  
 
-![Basic Metrics](manual/images/basic_statistics.png)
+![Basic Metrics](manual/images/basic-statistics.png)
 
 Below the **Frequency Diagrams** from the previous section one can find 4 metrics describing the current selection.
 - **Number of Cases**: The total number of cases in the current selection.
@@ -401,13 +389,13 @@ Below the **Frequency Diagrams** from the previous section one can find 4 metric
 
 Below that, one can see a bar chart that represents the distribution of case duration in the current segment.
 
-![Duration Bar chart](manual/images/duration_histogram.png)
+![Duration Bar chart](manual/images/duration-histogram.png)
 
 > **Tip:** One can hover over bars in the diagrams to see further details such as duration span of the bar and the total number of cases that fall into this span.
 
 #### 4.4.3 Batch Statistics
 
-![Batch statistics](manual/images/batch_statistics.png)
+![Batch statistics](manual/images/batch-statistics.png)
 
 When batch filtering is active for the given segment, the tool displays another section called **Batch Statistics**, which includes the following information:
 
@@ -432,7 +420,7 @@ The user can click on one of the variants to show the entire variant in the Perf
 #### 4.5.2 Inspecting variants
 After having selected a variant to inspect, the spectrum could for example look something like this:
 
-![Multiple spectra View](manual/images/multiple_spectrums_view.png)
+![Multiple spectra View](manual/images/multiple-spectrums-view.png)
 
 There are a few important things to note here:
 In a prior section, the concept of global and segment specific filters was introduced. The difference becomes evident here. 
@@ -457,11 +445,11 @@ Sometimes, it can be helpful to have a direct, side-by-side comparison between f
 
 To create a new *configuration*, click on (**1**) in the filter bar. This triggers a *popover*, that shows the overview over all open *configurations*. To add a new one, click **Add View**. 
 
-![Add configuration](manual/images/configuration_add.png)
+![Add configuration](manual/images/configuration-add.png)
 
 This triggers a *dialog* to open where one can enter the name of the new configuration. Click on **Add** to insert the *configuration*.  
 
-![Configuration name](manual/images/write_configuration_name.png)
+![Configuration name](manual/images/write-configuration-name.png)
 
 The new *configuration* is then directly added to the viewport.
 
@@ -470,7 +458,7 @@ The new *configuration* is then directly added to the viewport.
 
 #### 4.6.2 Applying filters on multiple configurations
 
-![Side by side view](manual/images/side_by_side_default.png)
+![Side by side view](manual/images/side-by-side-default.png)
 
 As it can be seen in the screenshot above, there is now a **hint**(**1**) right next to the **Coloring legend**.
 Essentially, the filter bar edits the currently selected configuration. Which *configuration* is currently selected can be seen in that **hint**. 
@@ -478,12 +466,12 @@ Also, the name of the configurations is now shown on top of them (**2**). The cu
 
 
 #### 4.6.3 Managing configurations
-![Configuration management](manual/images/configuration_management.png)
+![Configuration management](manual/images/configuration-management.png)
 
 It is possible to create an arbitrary amount of *configurations*. One can delete them by clicking on **x** next to the name of the section as shown above.
 When clicking on the name of a configuration, the configuration is imported into the viewport.
 
-![Choose spectrum side](manual/images/choose_side.png)
+![Choose spectrum side](manual/images/choose-side.png)
 
 However, when there are already two configurations in the viewport, the tool asks the user which side the new *configuration* should be added to. One can simply click on one of the two slides and then hit **Replace**.
 

@@ -2,7 +2,7 @@
   <div class="w-full h-full min-h-0 items-center flex gap-15">
     <!-- left side -->
     <div>
-      <img class="w-[280px] mb-10 mx-auto" src="/src/assets/undraw_upload_cucu.svg">
+      <img class="w-[280px] mb-10 mx-auto" src="/src/assets/undraw-upload-cucu.svg">
       <div class="text-3xl font-bold mb-3">Upload an event log.</div>
       <div class="text-gray-300 text-sm">To upload an event log, start by preparing the file in a supported format.
         Ensure the event log includes key columns such as Case ID, Activity, Timestamp, and any other relevant

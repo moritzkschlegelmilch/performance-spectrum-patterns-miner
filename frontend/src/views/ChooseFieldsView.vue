@@ -47,7 +47,7 @@
       </div>
     </div>
     <div v-else class="flex w-full h-full justify-center items-center gap-20">
-      <img class="w-[300px]" src="../assets/undraw_done_i0ak.svg">
+      <img class="w-[300px]" src="../assets/undraw-done-i0ak.svg">
       <div class="flex-col">
         <div class="text-2xl font-bold">Successful!</div>
         <div class="text-gray-500">You have successfull uploaded your event log</div>
