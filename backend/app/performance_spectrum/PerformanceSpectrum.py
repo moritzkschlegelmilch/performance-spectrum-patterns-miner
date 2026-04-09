@@ -230,7 +230,7 @@ class PerformanceSpectrumFilterWrapper:
         if (
                 batches is not None and
                 batches.batchType is not None
-                and batches.epsilon is not None and batches.epsilon > 0
+                and batches.epsilon is not None and batches.epsilon >= 0
                 and batches.minSamples is not None and batches.minSamples > 0
         ):
             self.batchFilter = batches

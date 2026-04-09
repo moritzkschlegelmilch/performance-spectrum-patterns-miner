@@ -83,7 +83,7 @@ const fifoOnly = defineModel('fifoOnly', {required: true})
 const popoverModel = ref(false)
 
 const inputDisabled = computed(() => {
-    return !batchType.value || epsilon.value <= 0 || minSamples.value <= 0
+    return !batchType.value || epsilon.value < 0 || minSamples.value <= 0
 })
 
 

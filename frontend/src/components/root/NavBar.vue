@@ -21,7 +21,7 @@
       </div>
       <!-- End of center links -->
 
-      <a class="ml-auto" href="https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner" target="_blank" rel="noopener noreferrer" title="Gitlab repository">
+      <a class="ml-auto" href="https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner" target="_blank" rel="noopener noreferrer" title="Github repository">
       <Github :size="20" />
       </a>
 
