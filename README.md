@@ -196,7 +196,7 @@ These functionalities are intended to help the user efficiently organize, update
 
 ---
 
-### 3.6 Troubleshooting
+### 3.5 Troubleshooting
 
 If you encounter issues during the upload process:
 
