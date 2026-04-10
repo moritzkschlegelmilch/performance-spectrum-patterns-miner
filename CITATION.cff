@@ -1,8 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "Performance Spectrum Patterns Miner"
-version: "1.0.0"
-doi: "To appear"
+title: "PerSpect: A Performance Spectrum Patterns Miner"
+version: "1.1.0"
 authors:
   - family-names: "Huang"
     given-names: "Tsung-Hao"
@@ -28,6 +27,28 @@ authors:
     given-names: "Piotr"
     affiliation: "RWTH Aachen University"
     email: "piotr.zaniewski@rwth-aachen.de"
-date-released: 2025-10-03
+date-released: 2026-04-10
 license: "MIT"
-url: "https://github.com/moritzkschlegelmilch/performance-spectrum-patterns-miner"
+url: "https://github.com/moritzkschlegelmilch/PerSpect"
+
+preferred-citation:
+  type: conference-paper
+  title: "PerSpect: An Interactive Tool for Performance Pattern Mining"
+  authors:
+    - family-names: "Schlegelmilch"
+      given-names: "Moritz"
+    - family-names: "Zaniewski"
+      given-names: "Piotr"
+    - family-names: "Diemieniev"
+      given-names: "Volodymyr"
+    - family-names: "Saathoff"
+      given-names: "Jasper"
+    - family-names: "Huang"
+      given-names: "Tsung-Hao"
+    - family-names: "Park"
+      given-names: "Gyunam"
+  year: 2026
+  collection-title: "Intelligent Information Systems: CAiSE 2026 Forum and Doctoral Consortium"
+  conference:
+    name: "CAiSE 2026"
+  publisher: "Springer"

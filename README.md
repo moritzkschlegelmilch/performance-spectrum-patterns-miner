@@ -32,16 +32,16 @@ Please cite this work using the [CITATION.cff](https://github.com/moritzkschlege
 3. [Getting Started: Event Log Upload (Web UI)](#3-getting-started-event-log-upload-web-ui)  
    3.1 [Uploading the .xes File](#31-uploading-the-xes-file)  
    3.2 [Mapping Event Log Columns](#32-mapping-event-log-columns)  
-   3.3 [Analyzing the Event Log](#33-analyzing-the-event-log)  
-   3.4 [Accessing Uploaded Event Logs](#34-accessing-uploaded-event-logs)  
-   3.5 [Event Logs Page Overview](#35-event-logs-page-overview)  
-   3.6 [Troubleshooting](#36-troubleshooting)
+   3.3 [Accessing Uploaded Event Logs](#33-accessing-uploaded-event-logs)  
+   3.4 [Event Logs Page Overview](#34-event-logs-page-overview)  
+   3.5 [Troubleshooting](#35-troubleshooting)
 
 4. [Viewing the Spectrum](#4-viewing-the-spectrum)  
    4.1 [Page Overview](#41-page-overview)  
    4.2 [Manipulation, Filters & Export](#42-manipulation-filters--export)  
    4.3 [Exporting a spectrum](#43-exporting-a-spectrum)    
    4.4 [Statistics](#44-statistics)  
+   4.5 [Filtering by variants](#45-filtering-by-variants)  
    4.6 [Comparing spectra](#46-comparing-spectra)
 
 5. [Developer Guide](#5-developer-guide)  
@@ -67,7 +67,7 @@ This is where *spectral pattern analysis* comes into place. Spectral pattern ana
  
 ### 1.2 Spectral Pattern Analysis
 Below, one can see an example of a *Performance Spectrum*. All activities are listed along the vertical axis. Time runs along the horizontal axis. When two activities are connected in time (for example, task A is followed by task B), a line is drawn between them. The angle or steepness of the line shows how quickly that handover happened. A steep line means the tasks happened quickly, while a shallow line indicates a delay.
-This effect is also supported by the color of the line: the darker the color, the longer the delay between the two activities. This way, we can see where delays are happening in the process at one glance .
+This effect is also supported by the color of the line: the darker the color, the longer the delay between the two activities. This way, we can see where delays are happening in the process at one glance.
 
 <figure>
     <img width="100%" src="manual/images/sorted-batches.png">
@@ -76,7 +76,7 @@ This effect is also supported by the color of the line: the darker the color, th
 
 
 ### 1.3 Limits of traditional Spectral Pattern Analysis
-Real-world processes are often very complex and most importantly incredibly large, often covering hundreds of thousands, if not millions of cases. *Fig. 2* (top) shows a traditional Performance Spectrum of an event log that covers around 150.000 cases. It is almost impossible to detect any patterns that could help the user understand which cases are delayed and most importantly, why.
+Real-world processes are often very complex and most importantly incredibly large, often covering hundreds of thousands, if not millions of cases. The figure above shows a traditional Performance Spectrum of an event log that covers around 150.000 cases. It is almost impossible to detect any patterns that could help the user understand which cases are delayed and most importantly, why.
 
 The tool described in this manual looks to overcome this limitation by implementing intuitive filtering methods and ways to separate overlapping patterns within the noisy data to find out which cases cause delays as well as to allow further analysis with the data.
 
@@ -140,13 +140,13 @@ To begin the upload process, proceed as follows:
 
 ### 3.2 Mapping Event Log Columns
 
-> **Note:** This section is often skipped as the system automatically detects event log columns in most cases. However, if your event log does not comply with the standard naming conventions for event log columns, you will have to manually map them.
+> **Note:** This section is often skipped as the system automatically detects event log columns in most cases. However, if your event log does not comply with the standard naming conventions for event log columns, you will need to manually map the following required attributes:
 
 - **Case ID**
 - **Activity**
 - **Timestamp**
 
-In the provided table. Select the columns in the order described by the system. Click ```Choose``` to set the column mapping. Typical attribute names in `.xes` files include:
+In the provided interface, select the columns in the order described by the system. Click ```Choose``` to set the column mapping. Typical attribute names in `.xes` files include:
 
 | Attribute | Common Names in .xes Files                         |
 | --------- | -------------------------------------------------- |
@@ -156,7 +156,7 @@ In the provided table. Select the columns in the order described by the system. 
 
 ![Column Mapping](manual/images/columns.png)
 
-If an incorrect mapping was made by incident, one may use the **Reset** button to clear the selections and start over again.  
+If an incorrect mapping was made by accident, one may use the **Reset** button to clear the selections and start over again.  
 
 ![Reset Button](manual/images/reset-button.png)
 
@@ -279,7 +279,7 @@ There are three types of batches that can be filtered for:
 - **End**: Groups cases that end around the same time.
 - **Start and End**: Groups cases that start or end around the same time.
 
-Under the hood, the application uses [DBSCAN-Clustering](https://de.wikipedia.org/wiki/DBSCAN) to find these batches. As *DBSCAN* uses two preset parameters, the user can manually set them in the tool to control size and form of a batch.
+Under the hood, the application uses [DBSCAN-Clustering](https://en.wikipedia.org/wiki/DBSCAN) to find these batches. As *DBSCAN* uses two preset parameters, the user can manually set them in the tool to control size and form of a batch.
 - **Epsilon**: Determines, how "close" two cases must be in time to belong to the same batch. Increasing this value potentially drags lines in a batch further apart and usually increases the number of batches.
 - **Min-Samples**: The minimum number of cases a batch must include to be detected. Increasing this number usually makes batches larger and lowers the total amount of batches.
 
@@ -402,7 +402,7 @@ When batch filtering is active for the given segment, the tool displays another 
 - **Number of Batches**: The total number of batches detected by the filter in the current segment.
 - **Avg. batch size**: The average number of cases in a detected batch.
 - **Avg. batch duration**: The average time a case takes to finish in any batch.
-- **Avg. batch interval**: The average time a between two batches directly following one another, i.e. the time between their earliest case's start time.
+- **Avg. batch interval**: The average time between two batches directly following one another, i.e. the time between their earliest case's start time.
 - **BF in %**: The batch frequency, i.e. which portion of cases in the entire event log is part of a batch in the selection.
 
 ---
@@ -438,7 +438,7 @@ This enables flexible filtering and analysis of variants, allowing users to focu
 
 ---
 ### 4.6 Comparing spectra
-Sometimes, it can be helpful to have a direct, side-by-side comparison between filtered spectra. For this purpose, this tool introduces the concept of *configurations*.  Understanding this concept is best done by implementing it in practice. 
+Sometimes, it can be helpful to have a direct, side-by-side comparison between filtered spectra. For this purpose, this tool introduces the concept of *configurations*. Understanding this concept is best done by implementing it in practice. 
 
 
 #### 4.6.1 Creating a new configuration
@@ -517,7 +517,7 @@ backend/
 ```
 
 The ``app`` folder contains most of the logic.
-Among other things it contains the applications main entry point in ```main.py```. This file initializes all the necessary libraries and files like *FastAPI* and the *database*.
+Among other things it contains the application's main entry point in ```main.py```. This file initializes all the necessary libraries and files like *FastAPI* and the *database*.
 
 
 ```/models``` contains the SQLite database ```Eventlog```. EventLog stores the basic data of uploaded event logs like the Case ID, Activity, Timestamp and the path to the actual event log on the server. The only purpose of this database model is to store all the essential information required to perform Process Mining. The actual operations are performed on the Pandas Dataframes of the parsed Event log file.
@@ -525,7 +525,7 @@ In ```/pydantic_models``` models, that define the structure of HTTP-Bodies for t
 Here, the most important model is the ```spectrum_filter_schema.py```, which defines the structure of filters for the application's main route.
 
 
-All HTTP routes are defined in ```routes.py```. We tried separating definition of routes, validation logic and actual application logic from another. Therefore validation is mainly done by pydantic and application logic is in the *serviced* in ```/services```. It currently only contains the `event_log_service.py`.
+All HTTP routes are defined in ```routes.py```. We tried separating definition of routes, validation logic and actual application logic from another. Therefore validation is mainly done by pydantic and application logic is in ```/services```. It currently only contains the `event_log_service.py`.
 
 
 #### 5.1.3 Querying Spectra
